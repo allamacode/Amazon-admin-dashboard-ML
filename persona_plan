@@ -1,0 +1,38 @@
+# Goal
+Enhance the Recommendations Tab by adding more default personas (Student, Gamer, Parent) and allowing users to type any custom persona free-text. The ML engine will match the custom persona text semantically against the product catalog to generate on-the-fly personalized recommendations.
+
+## User Review Required
+> [!IMPORTANT]
+> - Since we are adding new default personas to the initial database, the existing `amazon_ml.db` SQLite file will need to be deleted so it can be re-seeded upon startup. This will wipe out any temporary state, which is perfectly fine for this mock environment.
+> - For custom personas, the backend will use the existing `sentence-transformers` Semantic Model (which is already loaded for Search) instead of TF-IDF, because TF-IDF relies on exact keyword matching from historical documents, whereas the Semantic Model can understand the *intent* of a short phrase like "Outdoor Adventurer" and match it to related products.
+
+## Open Questions
+None. The plan is straightforward and utilizes our existing local ML capabilities.
+
+## Proposed Changes
+
+---
+
+### Backend
+
+#### [MODIFY] main.py (file:///c:/Amazon E commerce/amazon-ml-backend/main.py)
+- **Database Initialization:** Add more default personas (`student`, `gamer`, `parent`) with corresponding mock purchase histories to the `init_db` function. Add a few more catalog items to ensure these new personas get good matches.
+- **Recommendation Endpoint (`/api/recommendations`):** 
+  - Update the logic to check if the incoming `persona_id` matches an existing persona in the database.
+  - If it is a known persona, proceed with the existing **TF-IDF Content-Based Filtering**.
+  - If it is a custom string (e.g., "Photographer"), synthesize a temporary persona profile on the fly. Then, use the `semantic_model` (SentenceTransformer) to calculate the cosine similarity between the custom string and the catalog items' names/categories to generate relevant recommendations.
+
+---
+
+### Frontend
+
+#### [MODIFY] RecommendationsTab.js (file:///c:/Amazon E commerce/amazon-ml-dashboard/src/components/RecommendationsTab.js)
+- **UI Update:** Replace the simple `<select>` dropdown with a more flexible text input field (with a Search/Apply button) to allow free-text persona entry.
+- **Quick Select:** Add "Quick Select" pills/buttons below the input field to easily switch between the default personas (Tech, Fitness, Home, Student, Gamer, Parent).
+- **History Context:** Update the "Recent Browsing History" section to handle the synthesized history string when a custom persona is used.
+
+## Verification Plan
+### Automated Tests
+- Run the python backend and issue curl requests to `/api/recommendations?persona_id=gamer` and `/api/recommendations?persona_id=outdoor adventurer` to ensure both return 5 valid recommendations with accurate ML reasons.
+### Manual Verification
+- View the Next.js frontend at `http://localhost:3000`, type a completely random persona like "Aspiring Musician", and visually verify that the recommendations adapt dynamically.
