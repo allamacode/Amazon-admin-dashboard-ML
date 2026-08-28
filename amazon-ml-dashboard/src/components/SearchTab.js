@@ -13,7 +13,7 @@ export default function SearchTab() {
   const fetchData = async (searchQuery) => {
     setIsSearching(true);
     try {
-      const res = await fetch(`http://localhost:8000/api/search?query=${encodeURIComponent(searchQuery)}`);
+      const res = await fetch(`http://127.0.0.1:8000/api/search?query=${encodeURIComponent(searchQuery)}`);
       const json = await res.json();
       setData(json);
     } catch (err) {
@@ -84,7 +84,7 @@ export default function SearchTab() {
               <div style={{ padding: '40px', textAlign: 'center', color: 'var(--text-muted)' }}>Loading...</div>
             ) : data && data.baseline && (
               data.baseline.map((product, index) => (
-                <div key={product.id} className="product-card" style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <div key={`${product.id}-${index}`} className="product-card" style={{ flexDirection: 'row', alignItems: 'center' }}>
                   <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#ddd', width: '30px' }}>#{index + 1}</div>
                   <div style={{ flex: 1 }}>
                     <div className="product-title">{product.name}</div>
@@ -113,7 +113,7 @@ export default function SearchTab() {
             ) : data && data.mlOptimized && (
               data.mlOptimized.map((product, index) => (
                 <div 
-                  key={product.id} 
+                  key={`${product.id}-${index}`} 
                   className="product-card" 
                   style={{ 
                     flexDirection: 'row', 

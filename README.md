@@ -2,6 +2,11 @@
 
 A comprehensive, full-stack e-commerce dashboard demonstrating the integration of real Machine Learning capabilities for search optimization, inventory forecasting, and personalized product recommendations.
 
+<div align="center">
+  <img src="screenshots/1.png" alt="Screenshot 1" width="800"/>
+  <!-- More screenshots will be added here -->
+</div>
+
 ## Overview
 
 The **Amazon ML Dashboard** replaces traditional hardcoded logic and static data with dynamic, data-driven machine learning models. It connects a React-based frontend dashboard (Next.js) with a powerful Python backend that serves real-time ML inferences on simulated live warehouse data and dynamic search queries.

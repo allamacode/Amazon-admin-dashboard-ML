@@ -30,7 +30,7 @@ export default function InventoryTab() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://localhost:8000/api/inventory')
+    fetch('http://127.0.0.1:8000/api/inventory')
       .then(res => res.json())
       .then(json => {
         setData(json);

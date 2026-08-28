@@ -9,7 +9,7 @@ export default function RecommendationsTab() {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:8000/api/recommendations?persona_id=${activePersonaId}`)
+    fetch(`http://127.0.0.1:8000/api/recommendations?persona_id=${activePersonaId}`)
       .then(res => res.json())
       .then(json => {
         setData(json);
