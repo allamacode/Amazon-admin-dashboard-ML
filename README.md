@@ -3,7 +3,7 @@
 A comprehensive, full-stack e-commerce dashboard demonstrating the integration of real Machine Learning capabilities for search optimization, inventory forecasting, and personalized product recommendations.
 
 <div align="center">
-  <img src="screenshots/1.png" alt="Screenshot 1" width="800"/>
+  <img src="screenshots/inventory-forecasting-page.png" alt="Screenshot 1" width="800"/>
   <img src="screenshots/search-and-ranking-for-face-cream.png" alt="Search and Ranking" width="800"/>
   <!-- More screenshots will be added here -->
 </div>
